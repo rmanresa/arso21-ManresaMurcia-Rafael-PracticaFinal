@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/actividad"
+	xmlns:tns="http://www.example.org/actividad" 
+	elementFormDefault="qualified">
+
+
+	
+	<!--  Definición tipos complejos -->
+
+	<simpleType name="emailType">
+		<restriction base="string">
+			<pattern value="[^@]+@[^@]+\.[a-zA-Z]{2,}" />
+		</restriction>
+	</simpleType>
+	
+	
+	<complexType name="agendaType">
+		<sequence>
+			<element name="turno" minOccurs="1" maxOccurs="unbounded">
+				<complexType>
+					<sequence>
+						<element name="reserva" minOccurs="0" maxOccurs="1">
+							<complexType>
+								<attribute name="alumno" type="string" use="required"/>
+								<attribute name="email" tns:type="emailType" use="optional"/>
+							</complexType>
+						</element>			
+					</sequence>
+					<attribute name="horario" type="string" use="required"/>
+				</complexType>
+			</element>
+		</sequence>
+		
+	<attribute name="fecha" type="date" use="required"/>
+	</complexType>
+	
+	
+	<!--  SCHEMA -->
+			
+
+	<element name="actividad">
+		<complexType>
+			<sequence>
+				<element name="agenda" tns:type="agendaType" minOccurs="1" maxOccurs="unbounded" />
+			</sequence>
+		
+			<attribute name="id" type="string" use="required" />
+			<attribute name="titulo" type="string" use="required" />
+			<attribute name="descripcion" type="string" use="optional" />
+			<attribute name="profesor" type="string" use="required" />
+			<attribute name="email" tns:type="emailType" use="optional" />
+		</complexType>
+	</element>
+	
+
+	
+
+</schema>
+
+				
+							
+
+			
